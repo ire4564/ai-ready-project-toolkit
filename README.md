@@ -89,7 +89,7 @@ bash scripts/init.sh my-new-project
 cd ../my-new-project && pnpm dev
 ```
 
-`init.sh`는 **toolkit 폴더와 같은 레벨(부모 디렉토리)**에 새 프로젝트를 생성합니다:
+`init.sh`는 toolkit 폴더와 같은 레벨(부모 디렉토리)에 새 프로젝트를 생성합니다:
 
 ```
 parent/
