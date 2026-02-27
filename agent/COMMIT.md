@@ -62,7 +62,7 @@ BREAKING CHANGE: API 응답 구조가 변경되어 클라이언트 파싱 로직
 해당 파일 없으면 건너뛴다.
 
 1. `chore` — package.json, *-lock.*, pnpm-lock.yaml
-2. `chore` — *.config.*, tsconfig.*, .eslintrc*, .prettierrc*
+2. `chore` — *.config.*, tsconfig.*, .prettierrc*
 3. `style` — *.css, *.scss, *.less, *.module.css
 4. `refactor` — *.types.ts, *.d.ts, types/
 5. `feat` — 상수, 설정 파일
