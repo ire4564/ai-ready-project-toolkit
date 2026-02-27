@@ -39,7 +39,7 @@ ai-readme-toolkit/
 │   ├── .prettierignore        ← Prettier 제외 대상
 │   └── README.md              ← 템플릿 사용법 상세
 └── scripts/
-    ├── init.sh                ← 에이전트 문서 + 템플릿 복사 자동화
+    ├── init.sh                ← create-next-app + 템플릿 + 에이전트 문서 자동화
     └── setup-cursor.sh        ← Cursor rules/commands 자동 생성 (postinstall)
 ```
 
@@ -79,36 +79,43 @@ src/
 
 ```bash
 # 1. 이 레포를 클론
-git clone https://github.com/your-username/ai-readme-toolkit.git
+git clone https://github.com/ire4564/ai-ready-project-toolkit.git
 
-# 2. 새 프로젝트에 템플릿 + 에이전트 문서 한 번에 복사
-./scripts/init.sh my-new-project
+# 2. 프로젝트 생성 (create-next-app + 템플릿 + 에이전트 문서 + Cursor 설정)
+bash scripts/init.sh my-new-project
 
-# 3. 의존성 설치
-cd my-new-project && pnpm install
+# 3. 개발 시작
+cd my-new-project && pnpm dev
 ```
 
-`init.sh`가 복사하는 파일:
-- **템플릿** — `package.json`, `eslint.config.mjs`, `.prettierrc`, `.prettierignore`
-- **에이전트 문서** — `PROJECT_CONTEXT.md`(루트) + `agent/` 폴더 전체
-- **스크립트** — `scripts/setup-cursor.sh`
-
-`pnpm install` 시 `postinstall`로 Cursor 설정이 자동 생성됩니다:
-- `.cursor/commands/commit.md` — 커밋 커맨드
-- `.cursor/rules/002~006-*.mdc` — 에이전트 규칙 (alwaysApply)
+`init.sh`가 자동으로 수행하는 작업:
+1. `create-next-app`으로 Next.js 프로젝트 생성 (TypeScript, Tailwind, App Router, src/)
+2. `template/` 설정 파일 덮어쓰기 (package.json, ESLint, Prettier)
+3. `agent/` 컨텍스트 문서 복사
+4. Feature-based 폴더 구조 생성 (`src/features/`, `src/shared/`)
+5. `pnpm install` — Cursor 설정 자동 생성 포함
 
 ### 수동 복사
 
 ```bash
-# 필요한 파일만 골라서 복사
+# 템플릿 파일 복사
 cp template/package.json        your-project/
 cp template/eslint.config.mjs   your-project/
 cp template/.prettierrc         your-project/
 cp template/.prettierignore     your-project/
+
+# 에이전트 문서 복사 (Cursor 자동 설정에 필요)
 cp agent/PROJECT_CONTEXT.md     your-project/
+cp -r agent/                    your-project/agent/
+
+# setup-cursor 스크립트 복사
+mkdir -p your-project/scripts
+cp scripts/setup-cursor.sh      your-project/scripts/
 
 cd your-project && pnpm install
 ```
+
+> `agent/` 폴더가 있어야 `postinstall`에서 Cursor 설정(`.cursor/rules/`, `.cursor/commands/`)이 자동 생성됩니다.
 
 ## How to Use
 
