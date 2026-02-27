@@ -12,7 +12,7 @@ src/
 │   ├── layout.tsx
 │   ├── page.tsx
 │   ├── providers.tsx
-│   ├── global.css
+│   ├── globals.css
 │   ├── (routes)/               # 라우트 그룹
 │   │   ├── (auth)/
 │   │   │   └── login/page.tsx
@@ -41,7 +41,7 @@ src/
 │   ├── lib/                    # 유틸리티, 헬퍼
 │   ├── types/                  # 공유 타입
 │   └── config/                 # 환경 변수, 상수
-└── styles/                     # 글로벌 스타일
+└── public/                     # 정적 파일
 ```
 
 ---
