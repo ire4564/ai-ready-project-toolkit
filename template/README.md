@@ -20,7 +20,7 @@ cp template/eslint.config.mjs   your-project/
 cp template/.prettierrc         your-project/
 cp template/.prettierignore     your-project/
 
-# 2. 의존성 설치
+# 2. 의존성 설치 (postinstall로 Cursor 설정 자동 생성)
 cd your-project
 pnpm install
 
@@ -30,6 +30,21 @@ pnpm lint             # ESLint 검사
 pnpm format:check     # Prettier 검사
 pnpm test             # Jest 테스트
 ```
+
+### Cursor 자동 설정
+
+`pnpm install` 시 `postinstall` 스크립트가 `agent/` 파일을 Cursor 설정으로 변환합니다:
+
+| 소스 | 대상 |
+|------|------|
+| `agent/COMMIT.md` | `.cursor/commands/commit.md` |
+| `agent/DECISIONS.md` | `.cursor/rules/002-decisions.mdc` |
+| `agent/PROJECT_CONTEXT.md` | `.cursor/rules/003-project-context.mdc` |
+| `agent/GLOSSARY.md` | `.cursor/rules/004-glossary.mdc` |
+| `agent/TASK_TEMPLATE.md` | `.cursor/rules/005-task-template.mdc` |
+| `agent/CHECKLISTS.md` | `.cursor/rules/006-checklists.mdc` |
+
+`001` 번호는 프로젝트별 최우선 규칙을 위해 예약되어 있습니다.
 
 ## package.json 스크립트
 
@@ -47,6 +62,7 @@ pnpm test             # Jest 테스트
 | `test:ci` | `jest --ci` | CI용 테스트 |
 | `test:e2e` | `playwright test` | E2E 테스트 |
 | `prepare` | `husky` | Git hooks 설정 |
+| `postinstall` | `bash scripts/setup-cursor.sh` | Cursor rules/commands 자동 생성 |
 
 ## 포함된 의존성
 

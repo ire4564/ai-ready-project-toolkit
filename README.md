@@ -39,7 +39,8 @@ ai-readme-toolkit/
 │   ├── .prettierignore        ← Prettier 제외 대상
 │   └── README.md              ← 템플릿 사용법 상세
 └── scripts/
-    └── init.sh                ← 에이전트 문서 + 템플릿 복사 자동화
+    ├── init.sh                ← 에이전트 문서 + 템플릿 복사 자동화
+    └── setup-cursor.sh        ← Cursor rules/commands 자동 생성 (postinstall)
 ```
 
 ## Tech Stack
@@ -90,6 +91,11 @@ cd my-new-project && pnpm install
 `init.sh`가 복사하는 파일:
 - **템플릿** — `package.json`, `eslint.config.mjs`, `.prettierrc`, `.prettierignore`
 - **에이전트 문서** — `PROJECT_CONTEXT.md`(루트) + `agent/` 폴더 전체
+- **스크립트** — `scripts/setup-cursor.sh`
+
+`pnpm install` 시 `postinstall`로 Cursor 설정이 자동 생성됩니다:
+- `.cursor/commands/commit.md` — 커밋 커맨드
+- `.cursor/rules/002~006-*.mdc` — 에이전트 규칙 (alwaysApply)
 
 ### 수동 복사
 
