@@ -81,19 +81,29 @@ src/
 # 1. 이 레포를 클론
 git clone https://github.com/ire4564/ai-ready-project-toolkit.git
 
-# 2. 프로젝트 생성 (create-next-app + 템플릿 + 에이전트 문서 + Cursor 설정)
+# 2. 프로젝트 생성 (toolkit과 같은 레벨에 생성됨)
+cd ai-ready-project-toolkit
 bash scripts/init.sh my-new-project
 
 # 3. 개발 시작
-cd my-new-project && pnpm dev
+cd ../my-new-project && pnpm dev
 ```
 
-`init.sh`가 자동으로 수행하는 작업:
+`init.sh`는 **toolkit 폴더와 같은 레벨(부모 디렉토리)**에 새 프로젝트를 생성합니다:
+
+```
+parent/
+├── ai-ready-project-toolkit/   ← 이 레포
+└── my-new-project/             ← 여기에 생성됨
+```
+
+자동으로 수행하는 작업:
 1. `create-next-app`으로 Next.js 프로젝트 생성 (TypeScript, Tailwind, App Router, src/)
 2. `template/` 설정 파일 덮어쓰기 (package.json, ESLint, Prettier)
 3. `agent/` 컨텍스트 문서 복사
 4. Feature-based 폴더 구조 생성 (`src/features/`, `src/shared/`)
-5. `pnpm install` — Cursor 설정 자동 생성 포함
+5. `tsconfig.json` path alias 설정 (`@features/*`, `@shared/*`)
+6. `pnpm install` — Cursor 설정 자동 생성 포함
 
 ### 수동 복사
 
