@@ -28,14 +28,17 @@ if [ $# -lt 1 ]; then
 fi
 
 PROJECT_NAME="$1"
-PROJECT_DIR="$(pwd)/$PROJECT_NAME"
+PARENT_DIR="$(cd "$TOOLKIT_DIR/.." && pwd)"
+PROJECT_DIR="$PARENT_DIR/$PROJECT_NAME"
 
 if [ -d "$PROJECT_DIR" ]; then
-  echo "Error: '$PROJECT_NAME' 디렉토리가 이미 존재합니다."
+  echo "Error: '$PROJECT_DIR' 디렉토리가 이미 존재합니다."
   exit 1
 fi
 
-echo "==> [1/6] create-next-app으로 프로젝트 생성..."
+echo "==> [1/7] create-next-app으로 프로젝트 생성..."
+echo "    위치: $PARENT_DIR/$PROJECT_NAME"
+cd "$PARENT_DIR"
 pnpm create next-app "$PROJECT_NAME" \
   --typescript \
   --tailwind \
@@ -47,13 +50,13 @@ pnpm create next-app "$PROJECT_NAME" \
   --import-alias "@/*"
 
 echo ""
-echo "==> [2/6] template 설정 파일 덮어쓰기..."
+echo "==> [2/7] template 설정 파일 덮어쓰기..."
 cp "$TEMPLATE_DIR/package.json" "$PROJECT_DIR/"
 cp "$TEMPLATE_DIR/eslint.config.mjs" "$PROJECT_DIR/"
 cp "$TEMPLATE_DIR/.prettierrc" "$PROJECT_DIR/"
 cp "$TEMPLATE_DIR/.prettierignore" "$PROJECT_DIR/"
 
-echo "==> [3/6] agent 컨텍스트 문서 복사..."
+echo "==> [3/7] agent 컨텍스트 문서 복사..."
 mkdir -p "$PROJECT_DIR/agent"
 cp "$AGENT_DIR/PROJECT_CONTEXT.md" "$PROJECT_DIR/PROJECT_CONTEXT.md"
 cp "$AGENT_DIR/PROJECT_CONTEXT.md" "$PROJECT_DIR/agent/"
@@ -63,7 +66,7 @@ cp "$AGENT_DIR/TASK_TEMPLATE.md" "$PROJECT_DIR/agent/"
 cp "$AGENT_DIR/CHECKLISTS.md" "$PROJECT_DIR/agent/"
 cp "$AGENT_DIR/COMMIT.md" "$PROJECT_DIR/agent/"
 
-echo "==> [4/6] setup-cursor 스크립트 복사..."
+echo "==> [4/7] setup-cursor 스크립트 복사..."
 mkdir -p "$PROJECT_DIR/scripts"
 cp "$SCRIPTS_DIR/setup-cursor.sh" "$PROJECT_DIR/scripts/"
 chmod +x "$PROJECT_DIR/scripts/setup-cursor.sh"
@@ -97,7 +100,7 @@ echo "=========================================="
 echo " Done! '$PROJECT_NAME' 프로젝트가 생성되었습니다."
 echo "=========================================="
 echo ""
-echo "  cd $PROJECT_NAME && pnpm dev"
+echo "  cd $PROJECT_DIR && pnpm dev"
 echo ""
 echo "  생성된 구조:"
 echo "    src/app/          — Next.js 라우팅 (create-next-app)"
